@@ -1,0 +1,52 @@
+#include <string>
+#include <iostream>
+using namespace std;
+
+struct student{
+    int *a= new int[5];
+    string name;
+    string surname;
+    string second_name;
+    int mark (){
+        int s = 0;
+        for (int i = 0; i<5; i++)
+            s+=a[i];
+        return s;
+    }
+
+    void read(){
+        cin>> name >> surname >> second_name;
+        for (int i = 0; i<5; i++)
+            cin>> a[i];
+
+    }
+
+    void f(){
+        if (mark()>2)
+            cout << "pass\n";
+        else
+            cout << "dont pass\n";
+    }
+};
+double ave (student*ar, int n) {
+    int m = 0;
+    for (int i = 0; i<n; i++){
+        cout << ar[i].mark() << "\n";
+        ar[i].f();
+        m+=ar[i].mark();
+    }
+    return  (double) m/n;
+}
+
+int main() {
+    student *ar;
+    int n;
+    cin>>n;
+    ar = new student [n];
+    int m = 0;
+    for (int i = 0; i<n; i++)
+        ar[i].read();
+
+    cout << "medium mark " << ave(ar, n);
+    return 0;
+}
