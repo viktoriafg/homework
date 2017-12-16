@@ -1,0 +1,40 @@
+#include <iostream>
+
+using namespace std;
+void swap(int *a, int *b) {
+	int k;
+	k = *a;
+	*a = *b;
+	*b = k;
+}
+
+int ss(int *a, int k, int s, int d) {
+	int m, i = s, j = d;
+	if (s == d) return a[d];
+	m = a[(s + d) / 2];
+	while (i < j) {
+		while (a[i] < m) i++;
+		while (a[j] > m) j--;
+		if (i < j) {
+			swap(a + i, a + j);
+			i++; j--;
+		}
+	}
+	if (k <= j) return ss(a, k, s, j);
+	else return ss(a, k, j + 1, d);
+}
+
+int main() {
+	int n, m;
+	cout<< "Enter size \n";
+	cin>>n;
+	int *a = new int[(7 * n)];
+	for (int i = 0; i < 7 * n; i++)
+	{
+		cin>> a[i];
+	}
+	m = ss (a, 4 * n, 0, 7 * n);
+	cout<< m << endl;
+	system("pause");
+    return 0;
+}
