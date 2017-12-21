@@ -1,6 +1,7 @@
+//в массиве, длиной 7n найти 4n порядковую статистику
 #include <iostream>
-
 using namespace std;
+
 void swap(int *a, int *b) {
 	int k;
 	k = *a;
