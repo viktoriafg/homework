@@ -1,0 +1,64 @@
+//k-ый по величине
+#include <iostream>
+using namespace std;
+void swap(int *a, int *b) {
+	int k;
+	k = *a;
+	*a = *b;
+	*b = k;
+}
+
+void quickSort(int arr[], int left, int right) {
+    int i = left, j = right;
+    int tmp;
+    int p = arr[(left + right) / 2];
+    while (i <= j) {
+        while (arr[i] < p)
+        i++;
+        while (arr[j] > p)
+        j--;
+        if (i <= j) {
+            tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+            i++;
+            j--;
+        }
+    };
+    if (left < j)
+        quickSort(arr, left, j);
+    if (i < right)
+        quickSort(arr, i, right);
+}
+
+int main() {
+	int n, m, k;
+	cout<< "Enter size \n";
+	cin>>n;
+	cout<< "Enter k \n";
+	cin>>k;
+	int *a = new int[n + 1];
+	for (int i = 0; i < n; i++) {
+		a[i] = rand() % 20;
+	}
+	for(int i = 0; i<n; i++)
+        cout<< a[i] << " ";
+    cout << endl;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            if(i != j)
+                if (a[i] == a[j]) {
+                    swap(a[n - 1], a[j]);
+                    n--;
+                }
+    for(int i = 0; i<n; i++)
+        cout<< a[i] << " ";
+    cout << endl;
+	  quickSort(a, 0, n);
+	  for(int i = 0; i<n; i++)
+        cout<< a[i] << " ";
+    cout << endl;
+    cout<< a[k-1] ;
+	  system("pause");
+    return 0;
+}
