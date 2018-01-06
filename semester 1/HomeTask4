@@ -1,0 +1,107 @@
+//Рациональные числа
+#include <iostream>
+using namespace std;
+struct quotient {
+	int chisl;
+	int znam;
+	void gcd() {
+		int t,a,b;
+		a = chisl;
+		b = znam;
+		while (a!= 0 and b!=0){
+			if (a > b)
+				a = a%b;
+			else
+				b = b%a;
+		}
+		chisl /= (b+a);
+		znam /= (b+a);
+	}
+
+	void read()
+	{
+		cin >> chisl >> znam;
+	}
+
+	void write() {
+		if (znam!=1) {
+			gcd();
+			if (znam == 1) cout << chisl;
+			else
+				cout << chisl << '/' << znam << endl;
+		}
+		else
+            cout << chisl;
+	}
+};
+int gcd(int a, int b) {
+	while (a*b != 0) {
+		if(a>b)
+		a = a%b;
+		else
+		b = b%a;
+	}
+	return b+a;
+}
+quotient sum(quotient a, quotient b) {
+	quotient c;
+	int ac = a.chisl, az = a.znam, bc = b.chisl, bz = b.znam;
+	c.chisl = ac*bz + bc*az;
+	c.znam = bz*az;
+	int d = gcd(c.chisl, c.znam);
+	c.chisl /= d;
+	c.znam /= d;
+	return c;
+}
+quotient diff(quotient a, quotient b) {
+	quotient c;
+	int ac = a.chisl, az = a.znam, bc = b.chisl, bz = b.znam;
+	c.chisl = ac*bz - bc*az;
+	c.znam = bz*az;
+	int d = gcd(c.chisl, c.znam);
+	c.chisl /= d;
+	c.znam /= d;
+	return c;
+}
+quotient mul(quotient a, quotient b) {
+	quotient c;
+	int ac = a.chisl, az = a.znam, bc = b.chisl, bz = b.znam;
+	c.chisl = ac*bc;
+	c.znam = bz*az;
+	int d = gcd(c.chisl, c.znam);
+	c.chisl /= d;
+	c.znam /= d;
+	return c;
+}
+
+quotient  division(quotient a, quotient b) {
+quotient c;
+int ac = a.chisl, az = a.znam, bz = b.chisl, bc = b.znam;
+	c.chisl = ac*bc;
+	c.znam = bz*az;
+	int d = gcd(c.chisl, c.znam);
+	c.chisl /= d;
+	c.znam /= d;
+	return c;
+}
+int main(){
+	quotient l, m, n;
+	l.read();
+	m.read();
+	l.write();
+	m.write();
+	n = sum(l, m);
+	cout<<"sum = ";
+	n.write();
+	n = mul(m, l);
+	cout<< "mul = ";
+	n.write();
+	n = division(l,m);
+	cout<< "division = ";
+	n.write();
+	n = diff(l,m);
+	cout<< "difference = ";
+	n.write();
+	system("pause");
+	return 0;
+}
