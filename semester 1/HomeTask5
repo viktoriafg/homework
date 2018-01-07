@@ -1,0 +1,44 @@
+//структура для работы со строками
+#include <iostream>
+#include <string.h>
+using namespace std;
+typedef struct str_{
+	int l;
+	char* s;
+    str_(int l) {
+		l = l;
+		s = new char[l];
+	}
+	void read() {
+		for (int i = 0; i<l;i++)
+			cin >> s[i];
+	}
+	void write() {
+		for (int i = 0; i<l;i++)
+			cout << (s[i]);
+		cout << endl;
+	}
+	~str_() {
+			delete[]s;
+	}
+}str1;
+void conc(str_ &a, str_ &b, str_ &s3) {
+	memcpy(s3.s, a.s, a.l);
+	memcpy(s3.s+a.l, b.s, b.l);
+}
+
+int main()
+{
+	int l1, l2;
+	cin >> l1 >> l2;
+	str1 s1(l1), s2(l2);
+	s1.read();
+	s2.read();
+	s1.write();
+	s2.write();
+	str1 s3(s1.l+s2.l);
+	conc(s1, s2, s3);
+	s3.write();
+	system("pause");
+	return 0;
+}
