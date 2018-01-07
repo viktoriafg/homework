@@ -1,0 +1,52 @@
+// количество путей на карте из точки X в Y, если за шаг ходить можно(+1/+2 влево, вниз по диагонали)
+
+#include <iostream>
+using namespace std;
+
+int main(){
+    int n;
+    cout<< "size";
+    cin>>n;
+    int **a = new int *[n];
+	for (int i = 0; i<n; i++)
+	{
+		a[i] = new int[n];
+	}
+	for (int i = 0; i != n; i++)
+		for (int j = 0; j != n; j++)
+			a[i][j] = 0;
+    for (int j = 0; j<n; j++){
+            for (int i = 0; i<n ; i++)
+                cout<< a[i][j]<< " ";
+        cout<< endl;
+    }
+    cout<< "coordinates of points";
+	 int x1, y1, x2, y2;
+	 cin>>x1>>y1>>x2>>y2;
+     for (int i = x2; i <= x1; i++)
+        for (int j = y1; j <=y2 ; j++)
+            a[i][j] = 1;
+	 cout<<endl;
+	 if (x1>x2 && y1<=y2){
+         for (int i = y1; i<=y2; i++)
+            for (int j = x2; j<=x1; j++){
+                if (a[j][i]!=0){
+                    a[j][i] = 0;
+                    if (j<n && i<n)a[j][i] += a[j+1][i+1];
+                    a[x1][y1] = 1;
+                    if (j<n && i>0)a[j][i] += a[j-1][i+1];
+                    if(j>1) a[j][i] += a[j-2][i];
+                    if(j>0) a[j][i] += a[j-1][i];
+                }
+
+            }
+        for (int j = 0; j<n; j++){
+            for (int i = 0; i<n ; i++)
+                cout<< a[i][j]<< " ";
+        cout<< endl;
+        }
+        return a[x2][y2];
+	 }
+    else
+        return 0;
+}
