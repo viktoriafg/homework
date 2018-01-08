@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+int main(){
+    int n, k;
+    setlocale(LC_ALL, "Russian");
+    cout<< "Введите номер ступени ";
+    cin>>n;
+    cout<< "Максимальное количество ступеней за 1 шаг ";
+    cin>>k;
+    int p = k+n;
+    cout<< p << endl;
+    int *a = new int [p];
+    for (int i = 0; i<=p; i++ )
+        a[i] = 0;
+    for (int i = k+1; i<k+k; i++)
+        a[i] = 1;
+    for (int i = k; i< n+k; i++){
+        for (int j = i-k; j<i; j++)
+            a[i]+=a[j];
+        for (int i = 0; i<p; i++)
+            cout<< a[i] << ' ';
+        cout<< endl;
+    }
+    cout<< "Ответ = " << a[p-1];
+    return 0;
+}
