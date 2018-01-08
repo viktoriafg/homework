@@ -1,0 +1,63 @@
+#include <iostream>
+using namespace std;
+
+
+struct node {
+    int x;
+    node *next;
+};
+
+class queue_ {
+    node *first, *last;
+public:
+     queue_(): first(NULL), last(NULL){};
+     ~queue_() {
+          node *temp = first;
+          while (temp!=NULL) {
+              temp = first->next;
+              delete first;
+              first = temp;
+          }
+     }
+
+     void add(int x) {
+          node *temp = new node;
+          temp->x = x;
+          temp->next = NULL;
+          if (first!=NULL) {
+              last->next = temp;
+              last = temp;
+          }
+          else first = last = temp;
+     }
+
+     void show() {
+          node *temp = first;
+          while (temp!=NULL) {
+              cout << temp->x << " ";
+              temp = temp->next;
+          }
+          cout << endl;
+     }
+
+     void del() {
+          setlocale(LC_ALL, "Russian");
+          if (first != NULL) {
+              node *temp = first;
+              cout<< " Элемент " << first->x <<" удален " << endl;
+              first = first->next;
+              delete temp;
+          }
+     }
+};
+
+
+int main()
+{
+   queue_ q;
+   for(int i = 1; i < 10; i++) q.add(i);
+   q.show();
+   q.del();
+   q.show();
+   return 0;
+}
