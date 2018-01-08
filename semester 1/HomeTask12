@@ -1,0 +1,66 @@
+//наибольшее количество не пересекающихся отрезков
+#include <iostream>
+#include <string>;
+using namespace std;
+struct otrezok {
+	double a;
+	double b;
+	void read() {
+	    if (a<b){
+            cin >> a;
+            cin >> b;
+	    }
+        else {
+            cin >> b;
+            cin >> a;
+        }
+	}
+};
+bool nn(otrezok x, otrezok y) {
+	if (x.a < y.a) return true;
+	if (x.a > y.a) return false;
+	if (x.a == y.a)
+		if (x.b < y.b) return true;
+	return false;
+}
+void Quick(otrezok* a, int L, int R)
+{
+	int i, j;
+	otrezok bar;
+	i = L;
+	j = R;
+	bar = a[(L + R) / 2];
+	do {
+	    while (nn(bar, a[j]))
+			j--;
+		while (nn(a[i], bar))
+			i++;
+		if (i <= j) {
+			if (i<j) { otrezok t = a[i]; a[i] = a[j]; a[j] = t; }
+			i++; j--;
+		}
+	} while (i <= j);
+	if (L<j) Quick(a, L, j);
+	if (R>i) Quick(a, i, R);
+}
+int main() {
+	int c, s=0;
+	otrezok* l;
+	otrezok Min;
+	cin >> c;
+	l = new otrezok[c];
+	Min.b = 0;
+	for (int i = 0; i < c; i++)
+		l[i].read();
+	Quick(l, 0, c - 1);
+	for (int i = 0; i < c; i++) {
+		if (l[i].a >= Min.b) {
+			s++;
+			Min = l[i];
+		}
+	}
+	cout << s;
+	delete[] l;
+	system("pause");
+	return 0;
+}
