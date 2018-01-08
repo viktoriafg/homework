@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+struct nod {
+	int data;
+	nod *left, *right;
+};
+
+struct tree {
+	nod *first = NULL;
+	nod *push(int l, int r,int *a) {
+    nod * temp = new nod();
+	 if (l > r)
+	 	return NULL;
+	 temp->data = a[(l + r) / 2];
+	 temp->right = push((l + r) / 2 + 1, r, a);
+	 temp->left = push(l, (l + r) / 2 - 1, a);
+	 return temp;
+    }
+	void show(nod *first) {
+		if (first != NULL) {
+			show(first->left);
+			cout << first->data;
+			show(first->right);
+		}
+	}
+	void del(nod *tree_) {
+		if (tree_ != NULL) {
+			del(tree_->left);
+			del(tree_->right);
+			delete tree_;
+		}
+	}
+}
