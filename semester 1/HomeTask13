@@ -1,0 +1,29 @@
+//разложение числа в сумму квадратов с наименьшим числом слагаемых
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+const int MAXN = 1e5;
+
+int main() {
+	int x;
+	cin >> x;
+	int d[MAXN];
+	d[0] = 0;
+	for (int i = 1; i <= x; i++) {   //чтобы посчитать все d[i]
+		d[i] = i;
+		for (int j = 1; j*j <= i; j++) // чтобы посчитать для конкретного d[i]
+			d[i] = min(d[i - j*j], d[i]) + 1;
+	}
+	cout << d[x] << '\n';
+	for (int i = x; i > 0;)
+		for (int j = 1; j*j <= x; j++)
+			if (d[i - j*j] == d[i] - 1) {
+				i -= j*j;
+				cout << j*j<< ' ';
+				break;
+			}
+	system ("pause");
+	return 0;
+}
